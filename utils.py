@@ -11,8 +11,7 @@ def yun_pan_pan(text: str):
     url = base_url + ypp_cvt(text)
     d = feedparser.parse(url)
     result_list = []
-    i = 1
-    for each in d.entries[0:3]:
+    for each in d.entries[0:2]:
         soup = BeautifulSoup(each.description, features="html.parser")
         each_res = soup \
             .get_text('\n') \
@@ -22,10 +21,6 @@ def yun_pan_pan(text: str):
             .partition("via")[0] \
             .partition("频道投稿")[0]
         result_list.append(each_res)
-        if i < 3:
-            i += 1
-        else:
-            break
 
     if len(result_list) == 0:
         result = "暂无找到相关资源，请确认关键词正确！"
@@ -42,7 +37,7 @@ def ypp_cvt(text: str):
 
 
 def test():
-    print(yun_pan_pan("蜘蛛侠"))
+    print(yun_pan_pan("你好"))
 
 
 if __name__ == "__main__":
