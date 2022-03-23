@@ -13,7 +13,7 @@ def yun_pan_pan(text: str):
     result_list = []
     i = 1
     for each in d.entries[0:3]:
-        soup = BeautifulSoup(each.description)
+        soup = BeautifulSoup(each.description, features="html.parser")
         each_res = soup \
             .get_text('\n') \
             .replace("\n\n", "\n") \
