@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 def yun_pan_pan(text: str):
     # YunPanPan搜索转换
-    base_url = "https://rsshub.app/telegram/channel/YunPanPan/searchQuery="
+    base_url = "https://rss.ermaotie.workers.dev/telegram/channel/YunPanPan/searchQuery="
     url = base_url + ypp_cvt(text)
     d = feedparser.parse(url)
     result_list = []
