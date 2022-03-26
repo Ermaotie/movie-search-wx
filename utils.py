@@ -11,13 +11,14 @@ def yun_pan_pan(text: str):
     url = base_url + ypp_cvt(text)
     d = feedparser.parse(url)
     result_list = []
-    for each in d.entries[0:2]:
+    for each in d.entries:
         soup = BeautifulSoup(each.description, features="html.parser")
         each_res = soup \
             .get_text('\n') \
             .replace("\n\n", "\n") \
             .replace("\n ", " ") \
             .replace(" \n#", " #") \
+            .replace("=", "") \
             .partition("via")[0] \
             .partition("频道投稿")[0]
         result_list.append(each_res)
@@ -25,8 +26,18 @@ def yun_pan_pan(text: str):
     if len(result_list) == 0:
         result = "暂无找到相关资源，请确认关键词正确！"
     else:
-        index_text = "共找到{}条资源，因消息限制，仅显示优先级较高的几条\n\n".format(len(d.entries))
-        result = index_text + "\n========\n\n".join(result_list)
+        text_length = 0
+        last_index = 0
+        for each_res in result_list:
+            if text_length + len(each_res) < 250:
+                last_index += 1
+            else:
+                break
+        if last_index == 0:
+            result = result_list[0][0:290] + "..."
+        else:
+            index_text = "共找到{}条资源，因消息字数限制，仅显示优先级较高的{}条\n\n".format(len(d.entries), last_index)
+            result = index_text + "\n========\n\n".join(result_list[0:last_index])
     return result
 
 
@@ -37,7 +48,9 @@ def ypp_cvt(text: str):
 
 
 def test():
-    print(yun_pan_pan("你好"))
+    print(yun_pan_pan("学而思"))
+    print(yun_pan_pan("老友记"))
+    print(yun_pan_pan("合集"))
 
 
 if __name__ == "__main__":
