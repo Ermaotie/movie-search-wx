@@ -28,16 +28,17 @@ def yun_pan_pan(text: str):
     else:
         text_length = 0
         last_index = 0
+        limit_count = 900
         for each_res in result_list:
-            if text_length + len(each_res) < 250:
+            if text_length + len(each_res) < limit_count:
                 last_index += 1
             else:
                 break
         if last_index == 0:
-            result = result_list[0][0:290] + "..."
+            result = result_list[0][0:limit_count-3] + "..."
         else:
             index_text = "共找到{}条资源，因消息字数限制，仅显示优先级较高的{}条\n\n".format(len(d.entries), last_index)
-            result = index_text + "\n========\n\n".join(result_list[0:last_index])
+            result = index_text + "\n\n".join(result_list[0:last_index])
     return result
 
 
