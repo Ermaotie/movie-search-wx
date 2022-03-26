@@ -32,6 +32,7 @@ def yun_pan_pan(text: str):
         for each_res in result_list:
             if text_length + len(each_res) < limit_count:
                 last_index += 1
+                text_length += len(each_res)
             else:
                 break
         if last_index == 0:
@@ -49,9 +50,10 @@ def ypp_cvt(text: str):
 
 
 def test():
-    print(yun_pan_pan("学而思"))
-    print(yun_pan_pan("老友记"))
-    print(yun_pan_pan("合集"))
+    # print(yun_pan_pan("学而思"))
+    # print(yun_pan_pan("老友记"))
+    # print(yun_pan_pan("合集"))
+    print(yun_pan_pan("权力的游戏"))
 
 
 if __name__ == "__main__":
