@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 def yun_pan_pan(text: str):
     # YunPanPan搜索转换
-    base_url = "https://rsshub.uneasy.win/telegram/channel/YunPanPan/searchQuery="
+    base_url = "https://rsshub.uneasy.win/telegram/channel/shareAliyun/searchQuery="
     url = base_url + ypp_cvt(text)
     d = feedparser.parse(url)
     result_list = []
@@ -19,7 +19,7 @@ def yun_pan_pan(text: str):
             .replace("\n ", " ") \
             .replace(" \n#", " #") \
             .replace("=", "") \
-            .partition("via")[0] \
+            .partition("🏷")[0] \
             .partition("频道投稿")[0]
         result_list.append(each_res)
 
@@ -53,7 +53,7 @@ def test():
     # print(yun_pan_pan("学而思"))
     # print(yun_pan_pan("老友记"))
     # print(yun_pan_pan("合集"))
-    print(yun_pan_pan("权力的游戏"))
+    print(yun_pan_pan("极度深寒"))
 
 
 if __name__ == "__main__":
