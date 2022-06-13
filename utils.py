@@ -19,8 +19,9 @@ def yun_pan_pan(text: str):
             .replace("\n ", " ") \
             .replace(" \n#", " #") \
             .replace("=", "") \
+            .partition("📁")[0] \
             .partition("🏷")[0] \
-            .partition("频道投稿")[0]
+            .partition("📢")[0]
         result_list.append(each_res)
 
     if len(result_list) == 0:
