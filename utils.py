@@ -9,7 +9,7 @@ import re
 def yun_pan_pan(text: str):
     # YunPanPan搜索转换
     base_url = "https://rsshub.uneasy.win/telegram/channel/shareAliyun/searchQuery="
-    url = base_url + ypp_cvt(text)
+    url = base_url + ypp_cvt(text.replace(' ',''))
     d = feedparser.parse(url)
     result_list = []
     # print(len(d.entries))
@@ -56,7 +56,7 @@ def test():
     # print(yun_pan_pan("学而思"))
     # print(yun_pan_pan("老友记"))
     # print(yun_pan_pan("合集"))
-    print(yun_pan_pan("极度深寒"))
+    print(yun_pan_pan("极度 深寒"))
 
 
 if __name__ == "__main__":
