@@ -3,6 +3,7 @@
 """
 import feedparser
 from bs4 import BeautifulSoup
+import re
 
 
 def yun_pan_pan(text: str):
@@ -11,17 +12,18 @@ def yun_pan_pan(text: str):
     url = base_url + ypp_cvt(text)
     d = feedparser.parse(url)
     result_list = []
+    # print(len(d.entries))
     for each in d.entries:
         soup = BeautifulSoup(each.description, features="html.parser")
-        each_res = soup \
-            .get_text('\n') \
-            .replace("\n\n", "\n") \
-            .replace("\n ", " ") \
-            .replace(" \n#", " #") \
-            .replace("=", "") \
-            .partition("📁")[0] \
-            .partition("🏷")[0] \
-            .partition("📢")[0]
+        content = soup.get_text('\n').replace("\n\n", "\n")
+
+        name = re.search("资源名称.*\n", content)
+        link = re.search("http.*\n", content)
+
+        if (name is None) or (link is None):
+            continue
+        each_res = name.group() + link.group()
+        # print(each_res)
         result_list.append(each_res)
 
     if len(result_list) == 0:
@@ -37,10 +39,10 @@ def yun_pan_pan(text: str):
             else:
                 break
         if last_index == 0:
-            result = result_list[0][0:limit_count-3] + "..."
+            result = result_list[0][0:limit_count - 3] + "..."
         else:
-            index_text = "共找到{}条资源，因消息字数限制，仅显示优先级较高的{}条\n\n".format(len(d.entries), last_index)
-            result = index_text + "\n\n".join(result_list[0:last_index])
+            index_text = "共找到{}条资源，因消息字数限制，仅显示优先级较高的{}条\n\n".format(len(result_list), last_index)
+            result = index_text + "\n".join(result_list[0:last_index])
     return result
 
 
