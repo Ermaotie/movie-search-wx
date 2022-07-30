@@ -28,7 +28,7 @@ def yun_pan_pan(text: str):
         result_list.append(each_res)
 
     if len(result_list) == 0:
-        result = "暂无找到相关资源，请确认关键词正确！"
+        result = "暂无找到相关资源，请尝试更换关键词，去除版本号等以提高成功率！"
     else:
         text_length = 0
         last_index = 0
