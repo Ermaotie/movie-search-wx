@@ -8,7 +8,8 @@ import re
 
 def yun_pan_pan(text: str):
     # YunPanPan搜索转换
-    base_url = "https://rsshub.uneasy.win/telegram/channel/shareAliyun/searchQuery="
+    base_url = "https://rsshub.uneasy.win/telegram/channel/yunpanpan/searchQuery="
+    # base_url = "https://rsshub.app/telegram/channel/shareAliyun/searchQuery="
     url = base_url + ypp_cvt(text.replace(' ',''))
     d = feedparser.parse(url)
     result_list = []
@@ -54,9 +55,9 @@ def ypp_cvt(text: str):
 
 def test():
     # print(yun_pan_pan("学而思"))
-    # print(yun_pan_pan("老友记"))
+    print(yun_pan_pan("老友记"))
     # print(yun_pan_pan("合集"))
-    print(yun_pan_pan("极度 深寒"))
+    # print(yun_pan_pan("极度 深寒"))
 
 
 if __name__ == "__main__":
